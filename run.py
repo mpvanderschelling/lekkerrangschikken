@@ -3,7 +3,7 @@
 """
 Created on Sun Dec 27 15:07:46 2020
 
-@author: martin
+@author: Davey Struijk
 """
 
 import os
@@ -11,7 +11,7 @@ import csv
 import random
 from elo import rate_1vs1
 
-CSV_FILENAME = 'Martintop100.csv'
+CSV_FILENAME = 'keldertoplijst2021.csv'
 fieldnames = ['Artiest', 'Nummer', 'Youtube-link', 'Rating']
 
 # Load from CSV
