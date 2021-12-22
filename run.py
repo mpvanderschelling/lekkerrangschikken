@@ -60,7 +60,7 @@ while True:
         break
 
 # Save to CSV
-with open(CSV_FILENAME, 'w') as csvfile:
+with open(CSV_FILENAME, 'w', newline='') as csvfile:
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
     writer.writeheader()
     writer.writerows(tracks)
