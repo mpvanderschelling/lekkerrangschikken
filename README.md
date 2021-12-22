@@ -6,8 +6,7 @@ Simple script to help ranking music lists!
 ## Getting started
 
 1. Clone this repository
-2. Install the elo package: `pip install elo`
-3. Open terminal in the root folder and run: `python run.py`
+2. Open terminal in the root folder and run: `python run.py`
 
 ## How to use the script
 
