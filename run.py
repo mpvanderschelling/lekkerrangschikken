@@ -9,10 +9,22 @@ Created on Sun Dec 27 15:07:46 2020
 import os
 import csv
 import random
-from elo import rate_1vs1
 
 CSV_FILENAME = 'keldertoplijst2021.csv'
 fieldnames = ['Artiest', 'Nummer', 'Youtube-link', 'Rating']
+
+def expect(rating, other_rating):
+    """The "E" function in Elo. It calculates the expected score of the
+    first rating by the second rating.
+    """
+    # http://www.chess-mind.com/en/elo-system
+    diff = other_rating - rating
+    return 1. / (1 + 10 ** (diff / 400))
+
+
+def calc_elo(rating, other_rating, K=10):
+    return (rating + K * (1 - expect(rating, other_rating)),
+            other_rating + K * (0 - expect(other_rating, rating)))
 
 # Load from CSV
 with open(CSV_FILENAME) as csvfile:
@@ -36,10 +48,10 @@ while True:
         print("=" * w)
         choice = input("> ")
         if choice.lower() == '1':
-            tracks[a]['Rating'], tracks[b]['Rating'] = rate_1vs1(
+            tracks[a]['Rating'], tracks[b]['Rating'] = calc_elo(
                     float(tracks[a]['Rating']), float(tracks[b]['Rating']))
         elif choice.lower() == '2':
-            tracks[b]['Rating'], tracks[a]['Rating'] = rate_1vs1(
+            tracks[b]['Rating'], tracks[a]['Rating'] = calc_elo(
                     float(tracks[b]['Rating']), float(tracks[a]['Rating']))
         else:
             print('Invalid choice')
