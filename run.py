@@ -63,9 +63,9 @@ while True:
 with open(CSV_FILENAME, 'w', newline='') as csvfile:
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
     writer.writeheader()
-    writer.writerows(tracks)
+    writer.writerows(sorted(tracks, key=lambda t: float(t['Rating']), reverse=True))
 
 # Print ratings
-for track in sorted(tracks, key=lambda t: float(t['Rating'])):
+for track in sorted(tracks, key=lambda t: float(t['Rating']), reverse=True):
     print("[{Rating}] {Artiest} - {Nummer}".format(**track))
 
