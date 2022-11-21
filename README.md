@@ -6,7 +6,8 @@ Simple script to help ranking music lists!
 ## Getting started
 
 1. Clone this repository
-2. Open terminal in the root folder and run: `python run.py`
+2. Delete your own songs from the list (`keldertoplijst2022.csv`) to exclude them from ranking 
+3. Open terminal in the root folder and run: `python run.py`
 
 ## How to use the script
 
@@ -17,6 +18,6 @@ Simple script to help ranking music lists!
 2. Type `1` or `2` to select the song that you think is best and press `Enter`
 3. The program will select two new songs from the list at random
 4. You can exit this loop by pressing `Ctrl+C`
-5. A sorted list based on your music preferences will be written to `keldertoplijst2022.csv`
+5. A sorted [Elo rating](https://en.wikipedia.org/wiki/Elo_rating_system) list based on your music preferences will be written to `keldertoplijst2022.csv`
 
 You can continue sorting your list anytime by restarting the program. Your last sorted list will be taken as a starting point.
