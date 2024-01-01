@@ -9,12 +9,13 @@ Created on Sun Dec 27 15:07:46 2020
 import csv
 import os
 import random
+from typing import Tuple
 
 CSV_FILENAME = "keldertoplijst2022.csv"
 fieldnames = ["Artiest", "Nummer", "Youtube-link", "Rating"]
 
 
-def expect(rating, other_rating):
+def expect(rating: float, other_rating: float) -> float:
     """The "E" function in Elo. It calculates the expected score of the
     first rating by the second rating.
     """
@@ -23,8 +24,10 @@ def expect(rating, other_rating):
     return 1.0 / (1 + 10 ** (diff / 400))
 
 
-def calc_elo(rating, other_rating, K=10):
-    return (rating + K * (1 - expect(rating, other_rating)), other_rating + K * (0 - expect(other_rating, rating)))
+def calc_elo(rating: float,
+             other_rating: float, K: int = 10) -> Tuple[float, float]:
+    return (rating + K * (1 - expect(rating, other_rating)),
+            other_rating + K * (0 - expect(other_rating, rating)))
 
 
 # Load from CSV
@@ -49,9 +52,11 @@ while True:
         print("=" * w)
         choice = input("> ")
         if choice.lower() == "1":
-            tracks[a]["Rating"], tracks[b]["Rating"] = calc_elo(float(tracks[a]["Rating"]), float(tracks[b]["Rating"]))
+            tracks[a]["Rating"], tracks[b]["Rating"] = calc_elo(
+                float(tracks[a]["Rating"]), float(tracks[b]["Rating"]))
         elif choice.lower() == "2":
-            tracks[b]["Rating"], tracks[a]["Rating"] = calc_elo(float(tracks[b]["Rating"]), float(tracks[a]["Rating"]))
+            tracks[b]["Rating"], tracks[a]["Rating"] = calc_elo(
+                float(tracks[b]["Rating"]), float(tracks[a]["Rating"]))
         else:
             print("Invalid choice")
         print("")
@@ -62,7 +67,8 @@ while True:
 with open(CSV_FILENAME, "w", newline="") as csvfile:
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
     writer.writeheader()
-    writer.writerows(sorted(tracks, key=lambda t: float(t["Rating"]), reverse=True))
+    writer.writerows(
+        sorted(tracks, key=lambda t: float(t["Rating"]), reverse=True))
 
 # Print ratings
 for track in sorted(tracks, key=lambda t: float(t["Rating"]), reverse=True):
