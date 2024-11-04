@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Vote</title>
+</head>
+<body>
+    <h1>Vote for a Song</h1>
+    
+    <form id="voteForm">
+        <select id="winner_id" required>
+            <option value="">Select Winner</option>
+            <!-- Populate with songs dynamically -->
+        </select>
+        <select id="loser_id" required>
+            <option value="">Select Loser</option>
+            <!-- Populate with songs dynamically -->
+        </select>
+        <button type="submit">Vote</button>
+    </form>
+    <div id="response"></div>
+    
+    <button onclick="window.location.href='/'">Back to Home</button>
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script>
+        // Fetch songs and populate the select options
+        fetch('/get_songs')
+            .then(response => response.json())
+            .then(data => {
+                const winnerSelect = document.getElementById("winner_id");
+                const loserSelect = document.getElementById("loser_id");
+                
+                data.songs.forEach(song => {
+                    const optionWinner = document.createElement("option");
+                    optionWinner.value = song.song_id;
+                    optionWinner.textContent = `${song.title} by ${song.artist}`;
+                    winnerSelect.appendChild(optionWinner);
+                    
+                    const optionLoser = document.createElement("option");
+                    optionLoser.value = song.song_id;
+                    optionLoser.textContent = `${song.title} by ${song.artist}`;
+                    loserSelect.appendChild(optionLoser);
+                });
+            })
+            .catch(error => console.error('Error fetching songs:', error));
+    </script>
+</body>
+</html>

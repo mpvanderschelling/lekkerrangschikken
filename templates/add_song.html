@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Add Song</title>
+</head>
+<body>
+    <h1>Add Song</h1>
+    <form id="addSongForm">
+        <input type="text" id="title" placeholder="Enter song title" required>
+        <input type="text" id="artist" placeholder="Enter artist name" required>
+        <button type="submit">Add Song</button>
+    </form>
+    <div id="response"></div>
+    
+    <button onclick="window.location.href='/'">Back to Home</button>
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
